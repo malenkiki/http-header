@@ -194,6 +194,11 @@ class ResponseLineTest extends TestCase
         $this->assertFalse($rl206->isServerError());
     }
       
+    public function testInstanciatedWith2XXShouldReturnGoodIntegerStatusUsingGetStatusCode()
+    {
+        $this->markTestIncomplete();
+    }
+    
     public function testInstanciateUsingValid3XXStringShouldSuccess()
     {
         $rl300 = new ResponseLine($this->r300);
@@ -220,6 +225,12 @@ class ResponseLineTest extends TestCase
     }
     
     public function testInstanciatedWith3XXShouldReturnFalseToOtherTestThanIsRedirection()
+    {
+        $this->markTestIncomplete();
+    }
+    
+          
+    public function testInstanciatedWith3XXShouldReturnGoodIntegerStatusUsingGetStatusCode()
     {
         $this->markTestIncomplete();
     }
@@ -277,6 +288,12 @@ class ResponseLineTest extends TestCase
         $this->markTestIncomplete();
     }
     
+          
+    public function testInstanciatedWith4XXShouldReturnGoodIntegerStatusUsingGetStatusCode()
+    {
+        $this->markTestIncomplete();
+    }
+    
       
     public function testInstanciateUsingValid5XXStringShouldSuccess()
     {
@@ -305,7 +322,13 @@ class ResponseLineTest extends TestCase
     {
         $this->markTestIncomplete();
     }
-    
+ 
+       
+    public function testInstanciatedWith5XXShouldReturnGoodIntegerStatusUsingGetStatusCode()
+    {
+        $this->markTestIncomplete();
+    }
+       
     public function testInstanciationShouldReturnRightVersionCode()
     {
         $rlh10 = new ResponseLine($this->h10);
