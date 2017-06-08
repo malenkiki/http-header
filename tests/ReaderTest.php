@@ -4,10 +4,11 @@ use PHPUnit\Framework\TestCase;
 
 use Malenki\HttpHeader\Reader;
 
-final class ReaderTest extends TestCase
+class ReaderTest extends TestCase
+{
+    public function testInstanciateUsingValidUrlShouldSuccess()
     {
-        public function testInstanciateUsingValidUrlShouldSuccess(): void
-        {
-            $this->assertInstanceOf('Malenki\\HttpHeader\\Reader', new Reader('http://localhost/'));
-        }
+        $reader = new Reader('http://localhost/');
+        $this->assertInstanceOf('Malenki\\HttpHeader\\Reader', $reader);
     }
+}

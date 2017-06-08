@@ -23,19 +23,19 @@ class ResponseLine
         $this->extractInfo($line);
     }
 
-    public function getiHttpVersion()
+    public function getHttpVersion()
     {
-        return $this->httpVersion;
+        return (string) $this->httpVersion;
     }
 
     public function getReasonPhrase()
     {
-        return $this->reasonPhrase;
+        return (string) $this->reasonPhrase;
     }
 
     public function getStatusCode()
     {
-        return $this->statusCode;
+        return (int) $this->statusCode;
     }
 
     public function isInformational()
