@@ -12,32 +12,48 @@ class Solver
         'Last-Modified' => 'Date'
     );
 
-    public function __construct($fieldLine)
+    protected $field;
+
+
+    protected function getClassNameFromName($name)
     {
-        $this->getNameValueFromString($fieldLine);
+        $fieldType = new Fields\FieldType($name);
+        $type = $fieldType->get();
+
+        return "\\Malenki\\HttpHeader\\Fields\\" . $type . "Field";
     }
 
-    public function getNameValueFromString($str)
+    protected function getNameValueFromString($str)
     {
-        $result = explode(':', $str);
+        $prov = explode(':', $str);
 
-        if (count($result) !== 2) {
+        $result = new \stdClass();
+        $result->name  = array_shift($prov);
+        $result->value = implode(':', $prov);
+
+        if (empty($result->name) || empty($result->value)) {
             throw new \RuntimeException('Cannot extract valid name/value pair.');
         }
 
-        $out = new \stdClass();
+        $fullClassName = $this->getClassNameFromName($result->name);
+        $out = new $fullClassName();
         $attrs = ['name', 'value'];
 
         foreach ($attrs as $idx => $attr) {
-            $out->$attr = trim($result[$idx]);
+            $setter = "set" . ucfirst($attr);
+            $out->$setter(trim($result->$attr));
         }
 
         return $out;
     }
 
+    public function __construct($fieldLine)
+    {
+        $this->field = $this->getNameValueFromString($fieldLine);
+    }
 
     public function get()
     {
-        // TODO
+        return $this->field;
     }
 }

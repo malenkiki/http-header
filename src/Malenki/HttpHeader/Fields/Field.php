@@ -2,7 +2,7 @@
 
 namespace Malenki\HttpHeader\Fields;
 
-abstract class Field
+class Field
 {
     protected $name;
     protected $value;

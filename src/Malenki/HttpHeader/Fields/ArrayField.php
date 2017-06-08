@@ -2,7 +2,7 @@
 
 namespace Malenki\HttpHeader\Fields;
 
-class ArrayFields extends Field implements \Countable
+class ArrayField extends Field implements \Countable
 {
     protected $primarySeparator = ';';
     protected $secondarySeparator = '=';
@@ -22,23 +22,29 @@ class ArrayFields extends Field implements \Countable
         return $this->secondarySeparator;
     }
 
-    public function getValue()
+    public function setValue($value)
     {
-        if (is_array($this->smartValue)) {
-            return $this->smartValue;
-        }
-
-        $lines = explode($this->primarySeparator, $this->value);
+        $lines = explode($this->primarySeparator, $value);
 
         $out = [];
 
         foreach ($lines as $line) {
-            list($key, $val) = explode($this->secondarySeparator, $line);
-            $out[$key] = $val;
+            $prov = explode($this->secondarySeparator, $line);
+
+            if (count($prov) === 2) {
+                $out[$prov[0]] = $prov[1];
+            } else {
+                $out[] = reset($prov);
+            }
         }
 
         $this->smartValue = $out;
 
-        return $this->smartValue;
+        return $this;
+    }
+
+    public function count()
+    {
+        return count($this->smartValue);
     }
 }
